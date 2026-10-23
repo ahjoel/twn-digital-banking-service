@@ -1,0 +1,62 @@
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 24px;
+  background: #0b3d91;
+  color: #fff;
+}
+
+.bar__brand {
+  font-weight: 700;
+}
+
+.bar__nav {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+
+  a {
+    padding: 6px 12px;
+    border-radius: 6px;
+    color: #dbe6ff;
+    text-decoration: none;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    &.active {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-weight: 600;
+    }
+  }
+}
+
+.bar__user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  button {
+    padding: 6px 14px;
+    border: 1px solid #fff;
+    border-radius: 6px;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+.bar__username {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.content {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}

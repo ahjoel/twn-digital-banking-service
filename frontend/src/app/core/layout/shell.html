@@ -1,0 +1,19 @@
+<header class="bar">
+  <span class="bar__brand">Digital Banking</span>
+
+  <nav class="bar__nav" aria-label="Main menu">
+    <a routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">Home</a>
+    <a routerLink="/payments/status" routerLinkActive="active" ariaCurrentWhenActive="page">
+      Payment status
+    </a>
+  </nav>
+
+  <div class="bar__user">
+    <span class="bar__username">{{ auth.username() }}</span>
+    <button type="button" (click)="auth.logout()">Sign out</button>
+  </div>
+</header>
+
+<main class="content">
+  <router-outlet />
+</main>

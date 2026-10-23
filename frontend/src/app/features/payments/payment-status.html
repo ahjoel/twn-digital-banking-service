@@ -1,0 +1,80 @@
+<h1>Payment status</h1>
+
+<form class="search" [formGroup]="form" (ngSubmit)="check()" novalidate>
+  <div class="field">
+    <label for="reference">Payment reference</label>
+    <input
+      id="reference"
+      type="text"
+      formControlName="reference"
+      placeholder="e.g. PAY-2026-0001"
+      autocomplete="off"
+      spellcheck="false"
+      [attr.aria-invalid]="referenceInvalid"
+      aria-describedby="reference-error"
+    />
+    @if (referenceInvalid) {
+      <span id="reference-error" class="field__error">
+        Enter a valid reference (letters, digits, "-" or "_", max 50 characters).
+      </span>
+    }
+  </div>
+  <button type="submit" [disabled]="loading()">
+    {{ loading() ? 'Checking…' : 'Check status' }}
+  </button>
+</form>
+
+@if (errorMessage(); as message) {
+  <div class="alert" role="alert">{{ message }}</div>
+}
+
+@if (result(); as payment) {
+  <section class="result" aria-live="polite">
+    <header class="result__header">
+      <div>
+        <span class="result__label">Reference</span>
+        <strong>{{ payment.reference }}</strong>
+      </div>
+      <span class="badge" [class]="'badge badge--' + payment.status.toLowerCase()">
+        {{ payment.status }}
+      </span>
+    </header>
+
+    <p class="result__description">{{ payment.statusDescription }}</p>
+
+    <dl class="details">
+      <div>
+        <dt>Amount</dt>
+        <dd>{{ payment.amount | number: '1.2-2' }} {{ payment.currency }}</dd>
+      </div>
+      <div>
+        <dt>Transaction ID</dt>
+        <dd>{{ payment.transactionId }}</dd>
+      </div>
+      <div>
+        <dt>Beneficiary</dt>
+        <dd>{{ payment.creditorName }}</dd>
+      </div>
+      <div>
+        <dt>Payment method</dt>
+        <dd>{{ payment.paymentMethod }}</dd>
+      </div>
+      <div>
+        <dt>Debtor account</dt>
+        <dd>{{ payment.debtorAccount }}</dd>
+      </div>
+      <div>
+        <dt>Creditor account</dt>
+        <dd>{{ payment.creditorAccount }}</dd>
+      </div>
+      <div>
+        <dt>Created</dt>
+        <dd>{{ payment.createdAt | date: 'medium' }}</dd>
+      </div>
+      <div>
+        <dt>Last update</dt>
+        <dd>{{ payment.updatedAt | date: 'medium' }}</dd>
+      </div>
+    </dl>
+  </section>
+}

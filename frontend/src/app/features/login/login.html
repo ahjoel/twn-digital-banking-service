@@ -1,0 +1,62 @@
+<main class="login-page">
+  <section class="card" aria-labelledby="login-title">
+    <header class="card__header">
+      <div class="brand" aria-hidden="true">DB</div>
+      <h1 id="login-title">Digital Banking</h1>
+      <p class="subtitle">Sign in to your customer portal</p>
+    </header>
+
+    @if (errorMessage(); as message) {
+      <div class="alert" role="alert">{{ message }}</div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="field">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          autocomplete="username"
+          autocapitalize="none"
+          spellcheck="false"
+          [attr.aria-invalid]="isInvalid('username')"
+          aria-describedby="username-error"
+        />
+        @if (isInvalid('username')) {
+          <span id="username-error" class="field__error">Username is required.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="password">
+          <input
+            id="password"
+            [type]="showPassword() ? 'text' : 'password'"
+            formControlName="password"
+            autocomplete="current-password"
+            [attr.aria-invalid]="isInvalid('password')"
+            aria-describedby="password-error"
+          />
+          <button
+            type="button"
+            class="password__toggle"
+            (click)="showPassword.set(!showPassword())"
+            [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'"
+            [attr.aria-pressed]="showPassword()"
+          >
+            {{ showPassword() ? 'Hide' : 'Show' }}
+          </button>
+        </div>
+        @if (isInvalid('password')) {
+          <span id="password-error" class="field__error">Password is required.</span>
+        }
+      </div>
+
+      <button type="submit" class="submit" [disabled]="loading()">
+        {{ loading() ? 'Signing in…' : 'Sign in' }}
+      </button>
+    </form>
+  </section>
+</main>
